@@ -4,19 +4,38 @@ import { useState, useEffect } from 'react'
 import { Info, Phone, ChevronRight, ChevronDown, Menu, X, Trash2, Save } from 'lucide-react'
 
 const carreras = [
-  { id: 1, nombre: 'Ingeniería Informática', materias: ['Programación I', 'Matemáticas', 'Física'] },
-  { id: 2, nombre: 'Medicina', materias: ['Anatomía', 'Biología', 'Química'] },
-  { id: 3, nombre: 'Derecho', materias: ['Derecho Civil', 'Derecho Penal', 'Filosofía del Derecho'] },
+  { id: 1, nombre: 'Licenciatura en Alimentos', materias: ['Programación I', 'Matemáticas', 'Física'] },
+  { id: 2, nombre: 'Licenciatura en Biologia', materias: ['Anatomía', 'Biología', 'Química'] },
+  { id: 3, nombre: 'Licenciatura en Biotecnologia', materias: ['Derecho Civil', 'Derecho Penal', 'Filosofía del Derecho'] },
+  { id: 4, nombre: 'Licenciatura en Civil(Nuevo)', materias: ['Programación I', 'Matemáticas', 'Física'] },
+  { id: 5, nombre: 'Licenciatura en Electrica', materias: ['Anatomía', 'Biología', 'Química'] },
+  { id: 6, nombre: 'Licenciatura en Electromecanica', materias: ['Derecho Civil', 'Derecho Penal', 'Filosofía del Derecho'] },
+  { id: 7, nombre: 'Licenciatura en Electronica', materias: ['Programación I', 'Matemáticas', 'Física'] },
+  { id: 8, nombre: 'Licenciatura en Energia', materias: ['Anatomía', 'Biología', 'Química'] },
+  { id: 9, nombre: 'Licenciatura en Fisica(Did)', materias: ['Derecho Civil', 'Derecho Penal', 'Filosofía del Derecho'] },
+  { id: 10, nombre: 'Licenciatura en Fisica(Lic)', materias: ['Programación I', 'Matemáticas', 'Física'] },
+  { id: 11, nombre: 'Licenciatura en Industrial', materias: ['Anatomía', 'Biología', 'Química'] },
+  { id: 12, nombre: 'Licenciatura en Informática', materias: ['Derecho Civil', 'Derecho Penal', 'Filosofía del Derecho'] },
+  { id: 13, nombre: 'Licenciatura en Matemática(Did)', materias: ['Programación I', 'Matemáticas', 'Física'] },
+  { id: 14, nombre: 'Licenciatura en Matemática(Lic)', materias: ['Anatomía', 'Biología', 'Química'] },
+  { id: 15, nombre: 'Licenciatura en Matemática(Ing)', materias: ['Derecho Civil', 'Derecho Penal', 'Filosofía del Derecho'] },
+  { id: 16, nombre: 'Licenciatura en Mecánica', materias: ['Programación I', 'Matemáticas', 'Física'] },
+  { id: 17, nombre: 'Licenciatura en Quimica(Ing)', materias: ['Anatomía', 'Biología', 'Química'] },
+  { id: 18, nombre: 'Licenciatura en Quimica(Lic)', materias: ['Derecho Civil', 'Derecho Penal', 'Filosofía del Derecho'] },
+  { id: 19, nombre: 'Licenciatura en Sistemas(uevo)', materias: ['Programación I', 'Matemáticas', 'Física'] },
+  
 ]
 
-const diasSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes']
-const horas = ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00']
+const diasSemana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes','Sábado']
+const horas = ['06:45', '07:30', '08:15', '09:00', '09:45', '10:30', '11:15', '12:00', 
+  '12:45', '13:30', '14:15', '15:00', '15:45', '16:30', '17:15', '18:00', '18:45', '19:30', '20:15', '21:00']
 
 export default function Capuchino() {
   const [carreraExpandida, setCarreraExpandida] = useState(null)
   const [materiaSeleccionada, setMateriaSeleccionada] = useState(null)
   const [celdaColoreada, setCeldaColoreada] = useState(null)
   const [menuAbierto, setMenuAbierto] = useState(false)
+  const [busqueda, setBusqueda] = useState('') // Estado para el campo de búsqueda
 
   useEffect(() => {
     const handleResize = () => {
@@ -78,12 +97,26 @@ export default function Capuchino() {
 
       <div className="flex flex-1 overflow-hidden pt-16">
         {/* Menú lateral */}
-        <nav className={`
-          fixed top-16 bottom-0 left-0 z-40 w-64 bg-sky-200 p-4 overflow-y-auto transition-transform duration-300 ease-in-out transform
-          ${menuAbierto ? 'translate-x-0' : '-translate-x-full'}
-          md:relative md:translate-x-0 md:top-0
-        `}>
+        <nav
+          className={`
+            fixed top-16 bottom-0 left-0 z-40 w-80 p-4 rounded-lg shadow-xl border border-white/30 overflow-y-auto transition-transform duration-300 ease-in-out transform
+            ${menuAbierto ? 'translate-x-0' : '-translate-x-full'}
+            md:relative md:translate-x-0 md:top-0
+            bg-gradient-to-b from-blue-200 to-red-200 bg-opacity-30
+          `}
+        >
+ 
+
           <h2 className="text-lg font-semibold mb-4">Carreras y Materias</h2>
+          
+          {/* Campo de búsqueda */}
+          <input
+            type="text"
+            placeholder="Buscar carrera..."
+            value={busqueda}
+            onChange={(e) => setBusqueda(e.target.value)}
+            className="w-full p-2 mb-4 border rounded"
+          />
           <ul>
             {carreras.map((carrera) => (
               <li key={carrera.id} className="mb-2">
@@ -141,12 +174,12 @@ export default function Capuchino() {
             </div>
           </div>
           <div className="overflow-x-auto">
-            <table className="w-full border-collapse min-w-[300px] md:min-w-[600px]">
+            <table className="w-[1000px] border-collapse min-w-[300px] md:min-w-[600px]">
               <thead>
                 <tr>
-                  <th className="border p-1 md:p-2 text-xs md:text-base"></th>
+                  <th className="border p-0 w-20 text-xs md:text-base"></th>
                   {diasSemana.map((dia) => (
-                    <th key={dia} className="border p-1 md:p-2 text-xs md:text-base">
+                    <th key={dia} className="border p-0 w-20 text-xs md:text-base">
                       {dia}
                     </th>
                   ))}
@@ -155,17 +188,18 @@ export default function Capuchino() {
               <tbody>
                 {horas.map((hora) => (
                   <tr key={hora}>
-                    <td className="border p-1 md:p-2 text-xs md:text-base">{hora}</td>
+                    <td className="border p-0 md:p-0 text-xs md:text-base text-center">{hora}</td>
                     {diasSemana.map((dia) => (
                       <td
                         key={`${dia}-${hora}`}
-                        className={`border p-1 md:p-2 text-xs md:text-base cursor-pointer hover:bg-gray-100 ${
+                        className={`border p-0 md:p-0 text-xs md:text-base cursor-pointer hover:bg-gray ${//es para los bordes de la casilla
                           celdaColoreada &&
                           celdaColoreada.dia === dia &&
                           celdaColoreada.hora === hora
                             ? 'bg-green-200'
                             : ''
                         }`}
+                        
                         onClick={() => colorearCelda(dia, hora)}
                       >
                         {celdaColoreada &&
