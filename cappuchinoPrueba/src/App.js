@@ -1,5 +1,10 @@
 'use client'
 
+import Tacita from './assets/Tacita.png';
+import Telefono from './assets/Telefono.png';
+import Admiracion from './assets/Admiracion.png';
+import Toga from './assets/Toga.png';
+import Interrogacion from './assets/Interrogacion.png';
 import { useState, useEffect } from 'react'
 import { Info, Phone, ChevronRight, ChevronDown, Menu, X, Trash2, Save } from 'lucide-react'
 
@@ -69,12 +74,22 @@ export default function Capuchino() {
         <button onClick={toggleMenu} className="text-white md:hidden mr-4">
           {menuAbierto ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
         </button>
-        <h1 className="text-white text-xl md:text-2xl font-bold flex-grow">Cappuchino</h1>
+
+        {/* Contenedor para texto e imagen */}
+        <div className="flex items-center space-x-2 flex-grow">
+          <h1 className="text-white text-xl md:text-2xl font-bold">Cappuchino</h1>
+          <img src={Tacita} alt="Logo Tacita" className="h-8 w-8" />
+        </div>
+
+        {/* Iconos a la derecha */}
         <div className="flex items-center space-x-4">
-          <Phone className="text-white h-5 w-5" />
-          <Info className="text-white h-5 w-5" />
+        <img src={Telefono} alt="Logo Telefono" className="h-8 w-8" />
+        <img src={Toga} alt="Logo Toga" className="h-8 w-8" />
+        <img src={Admiracion} alt="Logo Admiracion" className="h-8 w-8" />
+        <img src={Interrogacion} alt="Logo Interrogacion" className="h-8 w-8" />
         </div>
       </header>
+
 
       <div className="flex flex-1 overflow-hidden pt-16">
         {/* Menú lateral */}
